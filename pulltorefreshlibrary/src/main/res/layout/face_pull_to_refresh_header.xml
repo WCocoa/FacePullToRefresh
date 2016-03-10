@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="90dp"
+              android:gravity="center"
+              android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.pulltorefreshlibrary.view.PullToRefreshFaceView
+                android:id="@+id/ptr_ai_jia_load_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:backgroupColor="#88c6c6c6"
+                />
+
+            <TextView
+                android:id="@+id/ptr_face_header_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="下拉刷新..."
+                android:textColor="#666666"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/ptr_face_header_last_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="距离上次刷新：08秒之前"
+            android:textColor="#999999"
+            android:textSize="10sp"/>
+    </LinearLayout>
+
+
+</LinearLayout>
