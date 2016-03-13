@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         facePullToRefreshLayout = (FacePullToRefreshLayout) findViewById(R.id.face_pull_to_refresh);
-
         facePullToRefreshLayout.setLastUpdateTimeRelateObject(this);
         facePullToRefreshLayout.setRefreshListener(new FacePullToRefreshLayout.RefreshListener() {
             @Override

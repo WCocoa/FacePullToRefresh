@@ -26,7 +26,7 @@ import in.srain.cube.views.ptr.indicator.PtrIndicator;
  * @日 期: 2016/2/24
  */
 public class FacePullToRefreshHeader extends FrameLayout implements PtrUIHandler {
-    private final static String KEY_SharedPreferences = "ai_jia_ptr_classic_last_update";
+    private final static String KEY_SharedPreferences = "face_ptr_classic_last_update";
     private TextView mTitleTextView;
     private PullToRefreshFaceView mLoadView;
     private long mLastUpdateTime = -1;
