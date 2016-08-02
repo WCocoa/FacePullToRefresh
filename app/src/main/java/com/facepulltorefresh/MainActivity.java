@@ -1,30 +1,36 @@
 package com.facepulltorefresh;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.facepulltorefresh.widget.TitleBar;
 import com.pulltorefreshlibrary.FacePullToRefreshLayout;
 
 import in.srain.cube.views.ptr.PtrFrameLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseTitleBarActivity {
     private final static String Tag = MainActivity.class.getSimpleName();
     private FacePullToRefreshLayout facePullToRefreshLayout;
+    private RecyclerView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);
+        setContentViewTitleBarHaveBack(R.layout.activity_main);
+        listView = (RecyclerView) findViewById(R.id.list_view);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        listView.setLayoutManager(linearLayoutManager);
+        listView.setAdapter(new TestAdapter());
+        linearLayoutManager.scrollToPosition(49);
         facePullToRefreshLayout = (FacePullToRefreshLayout) findViewById(R.id.face_pull_to_refresh);
         facePullToRefreshLayout.setLastUpdateTimeRelateObject(this);
         facePullToRefreshLayout.setRefreshListener(new FacePullToRefreshLayout.RefreshListener() {
@@ -43,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                linearLayoutManager.scrollToPosition(49);
             }
         });
 
@@ -70,5 +76,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateCustomTitleBar(@NonNull TitleBar titleHeaderBar) {
+        setTitleText("一句代码搞定TitleBar");
+        setRightText("设置").setRightOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "点击了设置", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
