@@ -19,12 +19,6 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrUIHandler;
 import in.srain.cube.views.ptr.indicator.PtrIndicator;
 
-/**
- * @Package com.pulltorefreshlibrary
- * @作 用:笑脸下拉刷新的header
- * @创 建 人: linguoding
- * @日 期: 2016/2/24
- */
 public class FacePullToRefreshHeader extends FrameLayout implements PtrUIHandler {
     private final static String KEY_SharedPreferences = "face_ptr_classic_last_update";
     private TextView mTitleTextView;
@@ -92,21 +86,10 @@ public class FacePullToRefreshHeader extends FrameLayout implements PtrUIHandler
         mLastUpdateTimeKey = key;
     }
 
-    /**
-     * Using an object to specify the last update time.
-     *
-     * @param object
-     */
     public void setLastUpdateTimeRelateObject(Object object) {
         setLastUpdateTimeKey(object.getClass().getName());
     }
 
-
-    /**
-     * 得到最后刷新时间
-     *
-     * @return
-     */
     private String getLastUpdateTime() {
 
         if (mLastUpdateTime == -1 && !TextUtils.isEmpty(mLastUpdateTimeKey)) {
@@ -147,18 +130,12 @@ public class FacePullToRefreshHeader extends FrameLayout implements PtrUIHandler
     }
 
     private void resetView() {
-        //隐藏加载view和停止动画
         mLoadView.stopAnimators();
         mLoadView.setVisibility(INVISIBLE);
 
     }
 
 
-    /**
-     * 重置，回到顶部的
-     *
-     * @param frame
-     */
     @Override
     public void onUIReset(PtrFrameLayout frame) {
         resetView();
@@ -167,11 +144,6 @@ public class FacePullToRefreshHeader extends FrameLayout implements PtrUIHandler
     }
 
 
-    /**
-     * 准备刷新，Header 将要出现时调用。
-     *
-     * @param frame
-     */
     @Override
     public void onUIRefreshPrepare(PtrFrameLayout frame) {
         mShouldShowLastUpdate = true;
@@ -182,18 +154,11 @@ public class FacePullToRefreshHeader extends FrameLayout implements PtrUIHandler
 
     }
 
-    /**
-     * 开始刷新，Header 进入刷新状态之前调用。
-     *
-     * @param frame
-     */
     @Override
     public void onUIRefreshBegin(PtrFrameLayout frame) {
         mShouldShowLastUpdate = false;
 
-        /**
-         * 让loadView开始动画
-         * */
+
         mLoadView.startAnimators();
         mTitleTextView.setVisibility(VISIBLE);
         mTitleTextView.setText(R.string.face_ptr_refreshing);
@@ -203,11 +168,6 @@ public class FacePullToRefreshHeader extends FrameLayout implements PtrUIHandler
 
     @Override
     public void onUIRefreshComplete(PtrFrameLayout frame) {
-        /*hideRotateView();
-        mProgressBar.setVisibility(INVISIBLE);*/
-        /*
-         * 加载完成，loadView停止动画
-         * */
         mLoadView.stopAnimators();
         mTitleTextView.setVisibility(VISIBLE);
         mTitleTextView.setText(getResources().getString(R.string.face_ptr_refresh_complete));
@@ -220,18 +180,9 @@ public class FacePullToRefreshHeader extends FrameLayout implements PtrUIHandler
         }
     }
 
-
-    /**
-     * 下拉过程中位置变化回调。
-     *
-     * @param frame
-     * @param isUnderTouch
-     * @param status
-     * @param ptrIndicator
-     */
     @Override
     public void onUIPositionChange(PtrFrameLayout frame, boolean isUnderTouch, byte status, PtrIndicator ptrIndicator) {
-        float percent = Math.min(1f, ptrIndicator.getCurrentPercent());//得到下拉过程的位置比例
+        float percent = Math.min(1f, ptrIndicator.getCurrentPercent());
         if (status == PtrFrameLayout.PTR_STATUS_PREPARE) {
             mLoadView.setDegrees(percent * 360 * 4);
             ViewCompat.setScaleX(mLoadView, percent);
@@ -254,13 +205,13 @@ public class FacePullToRefreshHeader extends FrameLayout implements PtrUIHandler
         final int lastPos = ptrIndicator.getLastPosY();//上一个位置
         if (currentPos < mOffsetToRefresh && lastPos >= mOffsetToRefresh) {
             if (isUnderTouch && status == PtrFrameLayout.PTR_STATUS_PREPARE) {
-                //下拉刷新
+
                 crossRotateLineFromBottomUnderTouch(frame);
 
             }
         } else if (currentPos > mOffsetToRefresh && lastPos <= mOffsetToRefresh) {
             if (isUnderTouch && status == PtrFrameLayout.PTR_STATUS_PREPARE) {
-                //释放刷新
+
                 crossRotateLineFromTopUnderTouch(frame);
 
             }
@@ -268,11 +219,7 @@ public class FacePullToRefreshHeader extends FrameLayout implements PtrUIHandler
     }
 
 
-    /**
-     * 释放刷新
-     *
-     * @param frame
-     */
+
     private void crossRotateLineFromTopUnderTouch(PtrFrameLayout frame) {
         if (!frame.isPullToRefresh()) {
             mTitleTextView.setVisibility(VISIBLE);
@@ -280,11 +227,7 @@ public class FacePullToRefreshHeader extends FrameLayout implements PtrUIHandler
         }
     }
 
-    /**
-     * 下拉刷新
-     *
-     * @param frame
-     */
+
     private void crossRotateLineFromBottomUnderTouch(PtrFrameLayout frame) {
         mTitleTextView.setVisibility(VISIBLE);
         if (frame.isPullToRefresh()) {

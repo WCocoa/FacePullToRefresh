@@ -15,14 +15,9 @@ import android.view.animation.LinearInterpolator;
 
 import com.pulltorefreshlibrary.R;
 
-/**
- * @Package com.pulltorefreshlibrary.view
- * @作 用:下拉刷新的笑脸
- * @创 建 人: linguoding
- * @日 期: 2016/3/9
- */
+
 public class PullToRefreshFaceView extends View {
-    private Paint paint;//画笔
+    private Paint paint;
     private Paint eyePaint;
     private int backgroupColor;
     private int width;
@@ -108,12 +103,6 @@ public class PullToRefreshFaceView extends View {
         this.backgroupColor = backgroupColor;
     }
 
-    /**
-     * 下拉过程渐变的效果
-     *
-     * @param sunRadius
-     * @param per
-     */
     public void setPerView(int sunRadius, float per) {
         if (per >= 0.5) {
             isDrawFace = true;
@@ -134,7 +123,6 @@ public class PullToRefreshFaceView extends View {
         paint = new Paint();
         paint.setAntiAlias(true);
         paint.setColor(backgroupColor);
-        //眼眶画笔
         eyePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         eyePaint.setColor(Color.WHITE);
         eyePaint.setStyle(Paint.Style.FILL);
@@ -175,18 +163,18 @@ public class PullToRefreshFaceView extends View {
         centerHeight = height / 2;
         canvas.translate(centerWidth, centerHeight);
         radiusCircle = Math.min(centerWidth, centerHeight);
-        //画圆
+
         canvas.drawCircle(0, 0, radiusCircle, paint);
         if (isDrawFace) {
-            //画两个眼框
+
             eyeRadius = Math.min(centerWidth / 3, centerHeight / 3);
             canvas.drawCircle(-centerWidth / 2, -centerHeight >> 3, eyeRadius, eyePaint);
             canvas.drawCircle(centerWidth / 2, -centerHeight >> 3, eyeRadius, eyePaint);
-            //画嘴巴
+
             canvas.drawArc(new RectF(-eyeRadius, 0, eyeRadius, eyeRadius * 2), 0, 180, true, eyePaint);
 
             canvas.save();
-            //画两个眼睛
+
             eyeBallRadius = Math.min(centerWidth >> 3, centerHeight >> 3);
             canvas.translate(-centerWidth / 2, -centerHeight >> 3);
             canvas.rotate(-degrees);
@@ -200,7 +188,7 @@ public class PullToRefreshFaceView extends View {
             canvas.drawCircle(0, (eyeRadius >> 1), eyeBallRadius, paint);
             canvas.restore();
 
-            //画两个眼皮
+
             canvas.save();
             canvas.translate(-centerWidth / 2, -centerHeight >> 3);
             canvas.drawArc(new RectF(-eyeRadius, -eyeRadius, eyeRadius, eyeRadius), -this.radius, -this.sweepRadius, false, paint);

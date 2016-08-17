@@ -1,5 +1,15 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'maven'
+allprojects {
+    tasks.withType(Javadoc) {
+        options {
+            encoding "UTF-8"
+            charSet 'UTF-8'
+            links "http://docs.oracle.com/javase/7/docs/api"
+        }
+    }
+}
 android {
     compileSdkVersion 22
     buildToolsVersion "23.0.0 rc3"
@@ -16,12 +26,29 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'in.srain.cube:ultra-ptr:1.0.11'
     compile 'com.android.support:recyclerview-v7:22.2.1'
+}
+
+//添加
+publish {
+    userOrg = 'lingguoding'//bintray.com用户名
+    groupId = 'com.linguoding'//jcenter上的路径
+    artifactId = 'FacePullToRefresh'//项目名称
+    publishVersion = '1.0.0'//版本号不重要
+    desc = 'Oh hi, This is a smiling face animation drop-down to refresh the library'//描述
+    website = 'https://github.com/lingguoding/FacePullToRefresh'//网站，不重要；尽量模拟github上的地址
 }

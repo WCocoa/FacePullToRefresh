@@ -6,12 +6,6 @@ import android.widget.AbsListView;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 
-/**
- * @Package com.pulltorefreshlibrary
- * @作 用:
- * @创 建 人: 林国定 邮箱：linggoudingg@gmail.com
- * @日 期: 2016/5/12 0012
- */
 public abstract class FacePullToRefreshHandler implements PtrHandler {
     public static boolean canChildScrollUp(View view) {
         if (android.os.Build.VERSION.SDK_INT < 14) {
@@ -26,14 +20,7 @@ public abstract class FacePullToRefreshHandler implements PtrHandler {
         }
     }
 
-    /**
-     * Default implement for check can perform pull to refresh
-     *
-     * @param frame
-     * @param content
-     * @param header
-     * @return
-     */
+
     public static boolean checkContentCanBePulledDown(PtrFrameLayout frame, View content, View header) {
         return !canChildScrollUp(content);
     }

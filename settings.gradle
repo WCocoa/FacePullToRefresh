@@ -1,2 +1,2 @@
-include ':app',':pulltorefreshlibrary'
+include ':pulltorefreshlibrary'
 
