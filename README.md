@@ -12,6 +12,7 @@
 ![face](face3.png)
 
 ##Gradle
+
 compile 'com.linguoding:FacePullToRefresh:1.0.0'
 
 ##布局
