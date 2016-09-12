@@ -11,6 +11,9 @@
 ![face](face2.png)
 ![face](face3.png)
 
+##Gradle
+compile 'com.linguoding:FacePullToRefresh:1.0.0'
+
 ##布局
 
       <com.pulltorefreshlibrary.FacePullToRefreshLayout
